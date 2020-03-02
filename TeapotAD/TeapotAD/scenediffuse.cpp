@@ -71,7 +71,7 @@ void SceneDiffuse::setLightParams(QuatCamera camera)
 	vec3 worldLight = vec3(10.0f,10.0f,10.0f);
    
 	
-	prog.setUniform("Ld", 0.9f, 0.9f, 0.9f);//what elements does Ld have?
+	prog.setUniform("Ld", 0.9f, 0.9f, 0.9f);
 	
 	prog.setUniform("LightPosition", worldLight );
 }
@@ -90,8 +90,8 @@ void SceneDiffuse::render(QuatCamera camera)
 	//Set the matrices for the plane although it is only the model matrix that changes so could be made more efficient
     setMatrices(camera);
 	//Set the plane's material properties in the shader and render
-	prog.setUniform("Kd", 0.51f, 1.0f, 0.49f); // What elements does Kd have?
-	plane->render();// what does it do?
+	prog.setUniform("Kd", 0.51f, 1.0f, 0.49f); // Values for diffusion's RGB colour.
+	plane->render();						   // Binds the vertex's VAO handle to the VAO then draws/renders them as triangles.
 
 
 
@@ -99,8 +99,8 @@ void SceneDiffuse::render(QuatCamera camera)
 	 model = mat4(1.0f);
 	 setMatrices(camera);
 	 //Set the Teapot material properties in the shader and render
-	 prog.setUniform("Kd", 0.46f, 0.29f, 0.0f); // What elements does Kd have?
-	 teapot->render(); // what does it do?
+	 prog.setUniform("Kd", 0.46f, 0.29f, 0.0f); // Values for diffusion's RGB colour.
+	 teapot->render();							// Binds the vertex's VAO handle to the VAO then draws/renders them as triangles.
 	
 }
 
@@ -115,7 +115,7 @@ void SceneDiffuse::setMatrices(QuatCamera camera)
     prog.setUniform("ModelViewMatrix", mv);
     prog.setUniform("NormalMatrix", mat3( vec3(mv[0]), vec3(mv[1]), vec3(mv[2]) ));
     prog.setUniform("MVP", camera.projection() * mv);
-	mat3 normMat = glm::transpose(glm::inverse(mat3(model)));// What does this line do?
+	mat3 normMat = glm::transpose(glm::inverse(mat3(model))); // Inverses and transposes the co-ordinate system of the model.
 	prog.setUniform("M", model);
 	prog.setUniform("V", camera.view() );
 	prog.setUniform("P", camera.projection() );
