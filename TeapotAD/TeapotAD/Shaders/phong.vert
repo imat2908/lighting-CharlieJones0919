@@ -8,7 +8,6 @@ out vec3 N; //Transformed normal
 out vec3 lightPos; //Light position in eye coords
 
 
-
 uniform vec3 LightPosition; // Light position 
 uniform mat3 NormalMatrix;
 uniform mat4 M;

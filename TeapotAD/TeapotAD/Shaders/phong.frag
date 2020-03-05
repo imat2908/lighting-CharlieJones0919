@@ -1,16 +1,25 @@
 #version 430
 
 in vec3 N;
-in vec3 vertPos;
 in vec3 lightPos;
+in vec3 vertPos;
 
-uniform vec3 La;            // Ambient Light intensity
-uniform vec3 Ld;            // Diffuse Light intensity
-uniform vec3 Ls;            // Specular Light intensity
+struct LightData
+{
+	vec3 La;            // Ambient Light intensity
+	vec3 Ld;            // Diffuse Light intensity
+	vec3 Ls;            // Specular Light intensity
+};
 
-uniform vec3 Ka;            // Ambient Reflectivity in Material
-uniform vec3 Kd;            // Diffusion Reflectivity in Material
-uniform vec3 Ks;            // Specular Reflectivity in Material
+struct MaterialData
+{
+	vec3 Ka;            // Ambient Reflectivity in Material
+	vec3 Kd;            // Diffusion Reflectivity in Material
+	vec3 Ks;            // Specular Reflectivity in Material
+};
+
+uniform LightData Light;
+uniform MaterialData Material;
 
 layout( location = 0 ) out vec4 FragColour;
 
@@ -41,5 +50,5 @@ vec4 specularOut(vec3 N, vec3 vertPos, vec3 LightPos, vec3 Ls, vec3 Ks)
 void main() 
 {
 	// Final Fragment Colour
-	FragColour = ambientOut(La, Ka) + diffuseOut(N, vertPos, lightPos, Ld, Kd) + specularOut(N, vertPos, lightPos, Ls, Ks);
+	FragColour = ambientOut(Light.La, Material.Ka) + diffuseOut(N, vertPos, lightPos, Light.Ld, Material.Kd) + specularOut(N, vertPos, lightPos, Light.Ls, Material.Ks);
 }
