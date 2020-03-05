@@ -35,8 +35,7 @@ public:
       */
     virtual void resize(QuatCamera camera,int, int) = 0;
     
-    void animate( bool value ) { m_animate = value; }
-    bool animating() { return m_animate; }
+	virtual void animate(bool &shift, bool &a, bool &d, bool &s, bool &r) = 0;
     
 protected:
 	bool m_animate;

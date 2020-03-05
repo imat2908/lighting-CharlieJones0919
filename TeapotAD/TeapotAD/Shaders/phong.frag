@@ -50,9 +50,15 @@ void light(vec3 N, vec3 vertPos, vec3 lightPos, vec3 La, vec3 Ld, vec3 Ls, vec3 
 
 void main() 
 {
+	// Variables to Hold the Output Lighting Values
 	vec4 ambience, diffusion, specularity;
+
+	// Calling the Light Function
 	light(data.N, data.vertPos, data.lightPos, Light.La, Light.Ld, Light.Ls, Material.Ka, Material.Kd, Material.Ks, ambience, diffusion, specularity);
 
+	// Final Culmination of Lighting Elements
+	vec4 sumLight = (ambience + diffusion + specularity);
+
 	// Final Fragment Colour
-	FragColour = ambience + diffusion + specularity;
+	FragColour = sumLight;
 }

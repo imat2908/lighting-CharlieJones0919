@@ -16,7 +16,6 @@
 //#include <string>
 //using std::cout;
 
-
 #include "QuatCamera.h"
 
 #define WIN_WIDTH 800
@@ -39,17 +38,28 @@ QuatCamera camera;
 //To keep track of cursor location
 double lastCursorPositionX, lastCursorPositionY, cursorPositionX, cursorPositionY;
 
+bool shift, a, d, s, r;
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 //Callback function for keypress use to toggle animate (not used at the moment)
 // and to check for R to reset camera
 /////////////////////////////////////////////////////////////////////////////////////////////
 static void key_callback(GLFWwindow* window, int key, int cancode, int action, int mods)
 {
-	if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE)
-		if (scene)
-			scene->animate(!(scene->animating()));
 	if (key == 'R' && action == GLFW_RELEASE)
-			camera.reset();
+	{
+		camera.reset();
+		r = true;
+	}
+	if (action == GLFW_PRESS)
+	{
+		if (key == GLFW_KEY_LEFT_SHIFT) { shift = true; }
+		if (key == GLFW_KEY_A) { a = true; }
+		if (key == GLFW_KEY_D) { d = true; }
+		if (key == GLFW_KEY_S) { s = true; }
+
+		scene->animate(shift, a, d, s, r);
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -57,15 +67,14 @@ static void key_callback(GLFWwindow* window, int key, int cancode, int action, i
 /////////////////////////////////////////////////////////////////////////////////////////////
 void scroll_callback(GLFWwindow *window, double x, double y)
 {
-			camera.zoom((float)y*0.5f);
+		camera.zoom((float)y*0.5f);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Initialise 
 /////////////////////////////////////////////////////////////////////////////////////////////
-void initializeGL() {
-
-
+void initializeGL() 
+{
     gl::ClearColor(0.5f,0.5f,0.5f,1.0f);
     
 	lastCursorPositionX=0.0;
@@ -73,7 +82,6 @@ void initializeGL() {
 	cursorPositionX=0.0;
 	cursorPositionY=0.0;
 	
-
 	// Create the scene class and initialise it for the camera
 	scene = new SceneDiffuse();
     scene->initScene(camera);
@@ -193,8 +201,6 @@ int _tmain(int argc, _TCHAR* argv[])
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
-
-
 
 	// Initialization
 	initializeGL();
