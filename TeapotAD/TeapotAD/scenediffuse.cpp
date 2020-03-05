@@ -64,6 +64,7 @@ namespace imat2908
 		vec3 worldLight = vec3(10.0f, 10.0f, 10.0f);
 
 		prog.setUniform("LightPosition", worldLight);
+		prog.setUniform("Light.attenuation", 9.0f);
 		prog.setUniform("Light.La", curLa);
 		prog.setUniform("Light.Ld", curLd);
 		prog.setUniform("Light.Ls", curLs);

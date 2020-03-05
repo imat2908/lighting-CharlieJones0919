@@ -9,9 +9,10 @@ in Data
 
 struct LightData
 {
-	vec3 La;            // Ambient Light intensity
-	vec3 Ld;            // Diffuse Light intensity
-	vec3 Ls;            // Specular Light intensity
+	float attenuation;  // Intensity of attenuation.
+	vec3 La;            // Ambient Light intensity.
+	vec3 Ld;            // Diffuse Light intensity.
+	vec3 Ls;            // Specular Light intensity.
 };
 
 struct MaterialData
@@ -48,17 +49,25 @@ void light(vec3 N, vec3 vertPos, vec3 lightPos, vec3 La, vec3 Ld, vec3 Ls, vec3 
 	specularity = vec4(vec4(Ls, 1.0) * vec4(Ks, 1.0) * Is);				// The specular light intensity multiplied with the material's reflectivity and the model's curviture.
 }
 
+void attenuate(float attenuation, vec3 lightPos, vec3 vertPos, vec4 ambi, vec4 diff, vec4 spec, out vec4 final)
+{
+	float dist = length(lightPos - vertPos);
+	float atten = clamp(attenuation / dist, 0.0, 1.0);
+
+	final = atten * (ambi + diff + spec);
+}
+
 void main() 
 {
 	// Variables to Hold the Output Lighting Values
-	vec4 ambience, diffusion, specularity;
+	vec4 ambience, diffusion, specularity, final;
 
 	// Calling the Light Function
 	light(data.N, data.vertPos, data.lightPos, Light.La, Light.Ld, Light.Ls, Material.Ka, Material.Kd, Material.Ks, ambience, diffusion, specularity);
 
-	// Final Culmination of Lighting Elements
-	vec4 sumLight = (ambience + diffusion + specularity);
+	// Attenuating the Light
+	attenuate(Light.attenuation, data.lightPos, data.vertPos, ambience, diffusion, specularity, final);
 
 	// Final Fragment Colour
-	FragColour = sumLight;
+	FragColour = final;
 }
