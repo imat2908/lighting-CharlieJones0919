@@ -21,6 +21,7 @@ struct MaterialData
 	vec3 Ks;            // Specular Reflectivity in Material
 };
 
+
 uniform LightData Light;
 uniform MaterialData Material;
 
