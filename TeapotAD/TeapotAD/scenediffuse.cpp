@@ -70,8 +70,9 @@ void SceneDiffuse::setLightParams(QuatCamera camera)
 
 	vec3 worldLight = vec3(10.0f,10.0f,10.0f);
    
-	
+	prog.setUniform("La", 0.3f, 0.3f, 0.3f);
 	prog.setUniform("Ld", 0.9f, 0.9f, 0.9f);
+	prog.setUniform("Ls", 0.3f, 0.3f, 0.3f);
 	
 	prog.setUniform("LightPosition", worldLight );
 }
@@ -90,7 +91,9 @@ void SceneDiffuse::render(QuatCamera camera)
 	//Set the matrices for the plane although it is only the model matrix that changes so could be made more efficient
     setMatrices(camera);
 	//Set the plane's material properties in the shader and render
-	prog.setUniform("Kd", 0.51f, 1.0f, 0.49f); // Values for diffusion's RGB colour.
+	prog.setUniform("Ka", 0.51f, 1.0f, 0.49f); // Values for diffusion's RGB colour.
+	prog.setUniform("Kd", 0.51f, 1.0f, 0.49f);
+	prog.setUniform("Ks", 0.1f, 0.1f, 0.1f); 
 	plane->render();						   // Binds the vertex's VAO handle to the VAO then draws/renders them as triangles.
 
 
@@ -99,7 +102,9 @@ void SceneDiffuse::render(QuatCamera camera)
 	 model = mat4(1.0f);
 	 setMatrices(camera);
 	 //Set the Teapot material properties in the shader and render
-	 prog.setUniform("Kd", 0.46f, 0.29f, 0.0f); // Values for diffusion's RGB colour.
+	 prog.setUniform("Ka", 0.46f, 0.29f, 0.0f); // Values for diffusion's RGB colour.
+	 prog.setUniform("Kd", 0.46f, 0.29f, 0.0f); 
+	 prog.setUniform("Ks", 0.29f, 0.29f, 0.29f); 
 	 teapot->render();							// Binds the vertex's VAO handle to the VAO then draws/renders them as triangles.
 	
 }
