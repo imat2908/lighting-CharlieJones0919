@@ -35,6 +35,27 @@ namespace imat2908
 
 		gl::Enable(gl::DEPTH_TEST);
 
+		for (int i = 0; i < numOfLightingParams; i++)
+		{
+			switch (i)
+			{
+			case 0:
+				lightingParameter[i].paramIndex = 'a';
+				lightingParameter[i].initalParam = vec3(0.3f, 0.3f, 0.3f);
+				break;
+			case 1:
+				lightingParameter[i].paramIndex = 'd';
+				lightingParameter[i].initalParam = vec3(0.9f, 0.9f, 0.9f);
+				break;
+			case 2:
+				lightingParameter[i].paramIndex = 's';
+				lightingParameter[i].initalParam = vec3(0.3f, 0.3f, 0.3f);
+				break;
+			}
+
+			lightingParameter[i].currentVal = lightingParameter[i].initalParam;
+		}
+
 		//Set up the lighting
 		setLightParams();
 
@@ -64,10 +85,23 @@ namespace imat2908
 		vec3 worldLight = vec3(10.0f, 10.0f, 10.0f);
 
 		prog.setUniform("LightPosition", worldLight);
-		prog.setUniform("Light.attenuation", 9.0f);
-		prog.setUniform("Light.La", curLa);
-		prog.setUniform("Light.Ld", curLd);
-		prog.setUniform("Light.Ls", curLs);
+		prog.setUniform("Light.attenuation", 20.0f);
+
+		for (int i = 0; i < numOfLightingParams; i++)
+		{
+			switch (i)
+			{
+			case 0:
+				prog.setUniform("Light.La", lightingParameter[i].currentVal);
+				break;
+			case 1:
+				prog.setUniform("Light.Ld", lightingParameter[i].currentVal);
+				break;
+			case 2:
+				prog.setUniform("Light.Ls", lightingParameter[i].currentVal);
+				break;
+			}
+		}
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////
@@ -145,51 +179,44 @@ namespace imat2908
 	{
 		if (r)
 		{
-			curLa = initialLa;
-			curLd = initialLd;
-			curLs = initialLs;
+			for (int i = 0; i < numOfLightingParams; i++)
+			{
+				lightingParameter[i].currentVal = lightingParameter[i].initalParam;
+			}
 			r = false;
 		}
 		else
 		{
-			if (a && (curLa.x < 1))
+			unsigned int paramNum;
+			bool paramButton[3] = { a, d, s };
+			vec3 curParamVal;
+
+			for (int i = 0; i < numOfLightingParams; i++)
 			{
-				if (!shift)
+				if (paramButton[i])
 				{
-					curLa += vec3(0.01f, 0.01f, 0.01f);
+					paramNum = i;
+					curParamVal = lightingParameter[paramNum].currentVal;
+
+					if (!shift)
+					{
+						lightingParameter[paramNum].currentVal += paramIncrement;
+					}
+					else
+					{
+						lightingParameter[paramNum].currentVal -= paramIncrement;
+					}
+
+					i = numOfLightingParams;
 				}
-				else
-				{
-					curLa -= vec3(0.01f, 0.01f, 0.01f);
-				}
-				a = false;
-			}
-			else if (d && (curLd.x < 1))
-			{
-				if (!shift)
-				{
-					curLd += vec3(0.01f, 0.01f, 0.01f);
-				}
-				else
-				{
-					curLd -= vec3(0.01f, 0.01f, 0.01f);
-				}
-				d = false;
-			}
-			else if (s && (curLs.x < 1))
-			{
-				if (!shift)
-				{
-					curLs += vec3(0.01f, 0.01f, 0.01f);
-				}
-				else
-				{
-					curLs -= vec3(0.01f, 0.01f, 0.01f);
-				}
-				s = false;
 			}
 		}
 
 		setLightParams();
+
+		std::cout << "Ambient: " << lightingParameter[0].currentVal.x << " " << a << endl;
+		std::cout << "Diffuse: " << lightingParameter[1].currentVal.x << " " << d << endl;
+		std::cout << "Specular: " << lightingParameter[2].currentVal.x << " " << s << endl;
+		std::cout << endl;
 	}
 }

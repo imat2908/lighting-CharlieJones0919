@@ -46,20 +46,24 @@ bool shift, a, d, s, r;
 /////////////////////////////////////////////////////////////////////////////////////////////
 static void key_callback(GLFWwindow* window, int key, int cancode, int action, int mods)
 {
-	if (key == 'R' && action == GLFW_RELEASE)
-	{
-		camera.reset();
-		r = true;
-	}
 	if (action == GLFW_PRESS)
 	{
 		if (key == GLFW_KEY_LEFT_SHIFT) { shift = true; }
 		if (key == GLFW_KEY_A) { a = true; }
 		if (key == GLFW_KEY_D) { d = true; }
 		if (key == GLFW_KEY_S) { s = true; }
-
-		scene->animate(shift, a, d, s, r);
 	}
+
+	if (action == GLFW_RELEASE)
+	{
+		if (key == GLFW_KEY_LEFT_SHIFT) { shift = false; }
+		if (key == GLFW_KEY_R) { r = true; camera.reset(); }
+		if (key == GLFW_KEY_A) { a = false; }
+		if (key == GLFW_KEY_D) { d = false; }
+		if (key == GLFW_KEY_S) { s = false; }
+	}
+
+	scene->animate(shift, a, d, s, r);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -109,7 +113,6 @@ void update( float t )
 	//	std::cout <<"deltaX " << deltaX << " deltaY " << deltaY << "\n";
 
 		camera.rotate(deltaX*ROTATE_VELOCITY, deltaY*ROTATE_VELOCITY);
-		
 	}
 	
 	//Using a different way (i.e. instead of callback) to check for RIGHT mouse button
@@ -123,9 +126,7 @@ void update( float t )
 	//To adjust Roll with MIDDLE mouse button
 	if (glfwGetMouseButton(window,GLFW_MOUSE_BUTTON_MIDDLE) )
 	{
-	
 		camera.roll(deltaX*ROTATE_VELOCITY);
-		
 	}
 		
 	//Store the current cursor position

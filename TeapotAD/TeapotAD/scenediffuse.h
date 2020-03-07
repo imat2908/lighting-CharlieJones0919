@@ -14,7 +14,6 @@
 
 using glm::mat4;
 
-
 namespace imat2908
 {
 
@@ -24,7 +23,19 @@ private:
     GLSLProgram prog;
 
     int width, height;
- 
+
+	const unsigned int numOfLightingParams = 3;
+	vec3 paramIncrement = vec3(0.01f, 0.01f, 0.01f);
+
+	struct LightingParam
+	{
+		char paramIndex;
+		vec3 initalParam;
+		vec3 currentVal;
+	};
+
+	LightingParam lightingParameter[3];
+
 	VBOTeapot *teapot;  //Teapot VBO
 	VBOPlane *plane;  //Plane VBO
 
@@ -36,15 +47,6 @@ private:
 
 public:
     SceneDiffuse(); //Constructor
-
-	vec3 initialLa = vec3(0.3f, 0.3f, 0.3f);
-	vec3 initialLd = vec3(0.9f, 0.9f, 0.9f);
-	vec3 initialLs = vec3(0.3f, 0.3f, 0.3f);
-
-	vec3 curLa = initialLa;
-	vec3 curLd = initialLd;
-	vec3 curLs= initialLs;
-
 
 	void setLightParams(); //Setup the lighting
 
@@ -58,7 +60,6 @@ public:
 
 	void animate(bool &shift, bool &a, bool &d, bool &s, bool &r);
 };
-
 }
 
 #endif // SCENEDIFFUSE_H
