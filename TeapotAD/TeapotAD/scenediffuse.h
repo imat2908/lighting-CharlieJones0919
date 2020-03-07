@@ -24,15 +24,14 @@ private:
 
     int width, height;
 
-	const unsigned int numOfLightingParams = 3; // Number of lighting elements. (Ambience, Diffusion and Specularity).
-	vec3 paramIncrement = vec3(0.01f, 0.01f, 0.01f); // Amount the lighting parameters are increase or decreased by on key press.
+	const unsigned int numOfLightingParams = 3;			// Number of lighting elements. (Ambience, Diffusion and Specularity).
+	vec3 paramIncrement = vec3(0.01f, 0.01f, 0.01f);	// Amount the lighting parameters are increase or decreased by on key press.
 
-	struct LightingParam // Varaibles for each of the lighting elements to reuse.
+	struct LightingParam	// Varaibles for each of the lighting elements to reuse.
 	{
-		vec3 initalParam; // What the parameter started as before user input.
-		vec3 currentVal; // The current value of the parameter as changed by user input.
+		vec3 initalParam;	// What the parameter started as before user input.
+		vec3 currentVal;	// The current value of the parameter as changed by user input.
 	};
-
 	LightingParam lightingParameter[3]; // An index for the 3 lighting parameter's values. ([0] = Ambient, [1] = Diffuse, [2] = Specular).
 
 	VBOTeapot *teapot;  // Teapot VBO.
@@ -47,11 +46,11 @@ private:
 public:
     SceneDiffuse(); // Constructor.
 
-	void setLightParams(); // Setup the lighting's parameters.
+	void setLightParams();				// Setup the lighting's parameters.
 
-    void initScene(QuatCamera camera); // Initialise the scene.
+    void initScene(QuatCamera camera);	// Initialise the scene.
 
-    void render(QuatCamera camera);	// Render the scene.
+    void render(QuatCamera camera);		// Render the scene.
 
     void resize(QuatCamera camera, int, int); // Resize.
 

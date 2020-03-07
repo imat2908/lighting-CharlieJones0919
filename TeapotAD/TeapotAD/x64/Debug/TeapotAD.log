@@ -1,10 +1,6 @@
-﻿  QuatCamera.cpp
-  TeapotAD.cpp
-  glslprogram.cpp
-  scenediffuse.cpp
-d:\university work\intro to shaders\week 21 lab\teapotad\teapotad\scenediffuse.cpp(38): warning C4018: '<': signed/unsigned mismatch
-d:\university work\intro to shaders\week 21 lab\teapotad\teapotad\scenediffuse.cpp(80): warning C4018: '<': signed/unsigned mismatch
-d:\university work\intro to shaders\week 21 lab\teapotad\teapotad\scenediffuse.cpp(172): warning C4018: '<': signed/unsigned mismatch
-d:\university work\intro to shaders\week 21 lab\teapotad\teapotad\scenediffuse.cpp(184): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
+﻿  scenediffuse.cpp
+d:\university work\intro to shaders\week 21 lab\teapotad\teapotad\scenediffuse.cpp(39): warning C4018: '<': signed/unsigned mismatch
+d:\university work\intro to shaders\week 21 lab\teapotad\teapotad\scenediffuse.cpp(82): warning C4018: '<': signed/unsigned mismatch
+d:\university work\intro to shaders\week 21 lab\teapotad\teapotad\scenediffuse.cpp(175): warning C4018: '<': signed/unsigned mismatch
+d:\university work\intro to shaders\week 21 lab\teapotad\teapotad\scenediffuse.cpp(186): warning C4018: '<': signed/unsigned mismatch
   TeapotAD.vcxproj -> D:\University Work\Intro to Shaders\Week 21 Lab\TeapotAD\x64\Debug\TeapotAD.exe
