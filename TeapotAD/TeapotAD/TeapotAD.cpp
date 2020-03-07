@@ -38,14 +38,19 @@ QuatCamera camera;
 //To keep track of cursor location
 double lastCursorPositionX, lastCursorPositionY, cursorPositionX, cursorPositionY;
 
+//Track whether or not lighting value changing keys are currently down.
 bool shift, a, d, s, r;
 
 /////////////////////////////////////////////////////////////////////////////////////////////
-//Callback function for keypress use to toggle animate (not used at the moment)
-// and to check for R to reset camera
+//	Callback function for keypress use to toggle animate.
+//	R key resets the camera and lighting values.
+//	A key increases the ambience, and decreases if shift is held while pressing it.
+//	D key increases the diffusion, and decreases if shift is held while pressing it.
+//	s key increases the specularity, and decreases if shift is held while pressing it.
 /////////////////////////////////////////////////////////////////////////////////////////////
 static void key_callback(GLFWwindow* window, int key, int cancode, int action, int mods)
 {
+	// If the key is being pressed, set its boolean to true.
 	if (action == GLFW_PRESS)
 	{
 		if (key == GLFW_KEY_LEFT_SHIFT) { shift = true; }
@@ -54,20 +59,21 @@ static void key_callback(GLFWwindow* window, int key, int cancode, int action, i
 		if (key == GLFW_KEY_S) { s = true; }
 	}
 
+	// If the key stops being pressed, set its boolean to false. (Except for the reset button which can't be continuously held; is set back to false in the animate() function once called).
 	if (action == GLFW_RELEASE)
 	{
 		if (key == GLFW_KEY_LEFT_SHIFT) { shift = false; }
-		if (key == GLFW_KEY_R) { r = true; camera.reset(); }
+		if (key == GLFW_KEY_R) { r = true; camera.reset(); }	// Also resets the camera.
 		if (key == GLFW_KEY_A) { a = false; }
 		if (key == GLFW_KEY_D) { d = false; }
 		if (key == GLFW_KEY_S) { s = false; }
 	}
 
-	scene->animate(shift, a, d, s, r);
+	scene->animate(shift, a, d, s, r);	
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
-//Callback function when mouse wheel is scrolled
+// Callback function when mouse wheel is scrolled.
 /////////////////////////////////////////////////////////////////////////////////////////////
 void scroll_callback(GLFWwindow *window, double x, double y)
 {
@@ -96,7 +102,6 @@ void initializeGL()
 /////////////////////////////////////////////////////////////////////////////////////////////
 void update( float t ) 
 { 
-	
 	//Get the current cursor position
 	glfwGetCursorPos(window,&cursorPositionX,&cursorPositionY);
 
@@ -207,7 +212,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	initializeGL();
 
 	resizeGL(camera,WIN_WIDTH,WIN_HEIGHT);
-
 
 	// Enter the main loop
 	mainLoop();
