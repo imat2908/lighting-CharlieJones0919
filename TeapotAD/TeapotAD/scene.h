@@ -20,12 +20,6 @@ public:
     virtual void initScene(QuatCamera camera) = 0;
 
     /**
-      This is called prior to every frame.  Use this
-      to update your animation.
-      */
-   // virtual void update(GLFWwindow * window, float t ) = 0;
-
-    /**
       Draw your scene.
       */
     virtual void render(QuatCamera camera) = 0;

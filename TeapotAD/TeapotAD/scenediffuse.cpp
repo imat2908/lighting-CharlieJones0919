@@ -40,15 +40,12 @@ namespace imat2908
 			switch (i)
 			{
 			case 0:
-				lightingParameter[i].paramIndex = 'a';
 				lightingParameter[i].initalParam = vec3(0.3f, 0.3f, 0.3f);
 				break;
 			case 1:
-				lightingParameter[i].paramIndex = 'd';
 				lightingParameter[i].initalParam = vec3(0.9f, 0.9f, 0.9f);
 				break;
 			case 2:
-				lightingParameter[i].paramIndex = 's';
 				lightingParameter[i].initalParam = vec3(0.3f, 0.3f, 0.3f);
 				break;
 			}
@@ -71,20 +68,13 @@ namespace imat2908
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////
-	//Update not used at present
-	/////////////////////////////////////////////////////////////////////////////////////////////
-	void SceneDiffuse::update()
-	{
-	}
-
-	/////////////////////////////////////////////////////////////////////////////////////////////
 	// Set up the lighting variables in the shader
 	/////////////////////////////////////////////////////////////////////////////////////////////
 	void SceneDiffuse::setLightParams()
 	{
 		vec3 worldLight = vec3(10.0f, 10.0f, 10.0f);
 
-		prog.setUniform("LightPosition", worldLight);
+		prog.setUniform("matrixProperties.LightPosition", worldLight);
 		prog.setUniform("Light.attenuation", 20.0f);
 
 		for (int i = 0; i < numOfLightingParams; i++)
@@ -138,12 +128,12 @@ namespace imat2908
 	{
 		mat4 mv = camera.view() * model;
 		prog.setUniform("ModelViewMatrix", mv);
-		prog.setUniform("NormalMatrix", mat3(vec3(mv[0]), vec3(mv[1]), vec3(mv[2])));
+		prog.setUniform("matrixProperties.NormalMatrix", mat3(vec3(mv[0]), vec3(mv[1]), vec3(mv[2])));
 		prog.setUniform("MVP", camera.projection() * mv);
 		mat3 normMat = glm::transpose(glm::inverse(mat3(model))); // Inverses and transposes the co-ordinate system of the model.
-		prog.setUniform("M", model);
-		prog.setUniform("V", camera.view());
-		prog.setUniform("P", camera.projection());
+		prog.setUniform("matrixProperties.M", model);
+		prog.setUniform("matrixProperties.V", camera.view());
+		prog.setUniform("matrixProperties.P", camera.projection());
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////

@@ -7,7 +7,6 @@
 #pragma warning( disable : 4290 )
 #endif
 
-
 #include "gl_core_4_3.hpp"
 
 #include <glm.hpp>
@@ -17,16 +16,11 @@
 using std::string;
 #include <map>
 
-
-
-
 using glm::vec2;
 using glm::vec3;
 using glm::vec4;
 using glm::mat4;
 using glm::mat3;
-
-
 
 #include <stdexcept>
 
