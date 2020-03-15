@@ -62,8 +62,8 @@ void light(vec3 N, vec3 vertPos, vec3 lightPos, vec3 La, vec3 Ld, vec3 Ls, vec3 
 	vec3 reflection = reflect(-vectorsNorm, N);							// Inverted model vertex position reflected across its normal.
 		
 	vec4 Is = vec4(pow(max(dot(reflection, normalisedVertPos), 0.0), 1.0));	// Substitution for cos^normal(angle between light and object).
-	Is = clamp(Is, 0.0, 1.0);											// Contrains the value of specular intensity between 0 and 1. Because the light intensity can't be negative, or more than 1.	
-	specularity = vec4(vec4(Ls, 1.0) * vec4(Ks, 1.0) * Is);				// The specular light intensity multiplied with the material's reflectivity and the model's curviture.
+	Is = clamp(Is, 0.0, 1.0);											    // Contrains the value of specular intensity between 0 and 1. Because the light intensity can't be negative, or more than 1.	
+	specularity = vec4(vec4(Ls, 1.0) * vec4(Ks, 1.0) * Is);				    // The specular light intensity multiplied with the material's reflectivity and the model's curviture.
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////

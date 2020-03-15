@@ -25,7 +25,7 @@ private:
     int width, height;
 
 	const unsigned int numOfLightingParams = 3;			// Number of lighting elements. (Ambience, Diffusion and Specularity).
-	vec3 paramIncrement = vec3(0.01f, 0.01f, 0.01f);	// Amount the lighting parameters are increase or decreased by on key press.
+	vec3 paramIncrement = vec3(0.005f, 0.005f, 0.005f);	// Amount the lighting parameters are increase or decreased by on key press.
 	float attunIncrement = 0.5;							// Amount the attunuation's distance is increased or decreased on key press.
 
 	struct LightingParam	// Varaibles for each of the lighting elements to reuse.
