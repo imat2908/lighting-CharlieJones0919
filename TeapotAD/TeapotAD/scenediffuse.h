@@ -26,6 +26,7 @@ private:
 
 	const unsigned int numOfLightingParams = 3;			// Number of lighting elements. (Ambience, Diffusion and Specularity).
 	vec3 paramIncrement = vec3(0.01f, 0.01f, 0.01f);	// Amount the lighting parameters are increase or decreased by on key press.
+	float attunIncrement = 0.5;							// Amount the attunuation's distance is increased or decreased on key press.
 
 	struct LightingParam	// Varaibles for each of the lighting elements to reuse.
 	{
@@ -33,6 +34,13 @@ private:
 		vec3 currentVal;	// The current value of the parameter as changed by user input.
 	};
 	LightingParam lightingParameter[3]; // An index for the 3 lighting parameter's values. ([0] = Ambient, [1] = Diffuse, [2] = Specular).
+	
+	struct AttunParam
+	{
+		float initialParam;
+		float currentVal;
+	}; 
+	AttunParam attunationParameter;
 
 	VBOTeapot *teapot;  // Teapot VBO.
 	VBOPlane *plane;  // Plane VBO.
@@ -54,7 +62,7 @@ public:
 
     void resize(QuatCamera camera, int, int); // Resize.
 
-	void animate(bool &shift, bool &a, bool &d, bool &s, bool &r); // Used to update the lighting parameters based on the user's keyboard input.
+	void animate(bool &shift, bool &a, bool &d, bool &s, bool &space, bool &r); // Used to update the lighting parameters based on the user's keyboard input.
 };
 }
 

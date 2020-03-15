@@ -54,6 +54,9 @@ namespace imat2908
 			lightingParameter[i].currentVal = lightingParameter[i].initalParam;	// All of the element's current lighting parameters set to their respective initial parameters.
 		}
 
+		attunationParameter.initialParam = 30.0f;
+		attunationParameter.currentVal = attunationParameter.initialParam;
+
 		// Set up the lighting.
 		setLightParams();
 
@@ -62,7 +65,7 @@ namespace imat2908
 
 		// A matrix to move the teapot lid upwards.
 		glm::mat4 lid = glm::mat4(1.0);
-		lid *= glm::translate(vec3(0.0,1.0,0.0));
+		lid *= glm::translate(vec3(0.0,0.0,0.1));
 
 		//Create the teapot with translated lid.
 		teapot = new VBOTeapot(16, lid);
@@ -76,7 +79,7 @@ namespace imat2908
 		vec3 worldLight = vec3(10.0f, 10.0f, 10.0f);	// Position of the light source.
 
 		prog.setUniform("matrixProperties.LightPosition", worldLight);	// Setting the light position to its uniform value in the vertex shader.
-		prog.setUniform("Light.attenuation", 20.0f);					// Setting the light attenuation to its uniform value in the fragment shader.
+		prog.setUniform("Light.attenuation", attunationParameter.currentVal);	// Setting the light attenuation to its uniform value in the fragment shader.
 
 		// Setting each of the lighting element's intensities in their respective new current values to their uniform values in the fragment shader.
 		for (int i = 0; i < numOfLightingParams; i++)
@@ -167,7 +170,7 @@ namespace imat2908
 		}
 	}
 
-	void SceneDiffuse::animate(bool &shift, bool &a, bool &d, bool &s, bool &r)
+	void SceneDiffuse::animate(bool &shift, bool &a, bool &d, bool &s, bool &space, bool &r)
 	{
 		// If the "R" key has is being pressed, reset all the lighting element's parameters back to their initial values then set the key back to false.
 		if (r)
@@ -176,6 +179,8 @@ namespace imat2908
 			{
 				lightingParameter[i].currentVal = lightingParameter[i].initalParam;
 			}
+			attunationParameter.currentVal = attunationParameter.initialParam;
+
 			r = false;
 		}
 		else
@@ -200,14 +205,23 @@ namespace imat2908
 					}
 				}
 			}
+
+			// Update attunuation distance if the space button has been pressed.
+			if (space)
+			{
+				if (!shift) { attunationParameter.currentVal += attunIncrement; }
+				else { attunationParameter.currentVal -= attunIncrement; }
+			}
 		}
 
-		setLightParams();	// Update the lighting values to their new current values.
+		// Update the lighting values to their new current values.
+		setLightParams();	
 
 		// Outputs the changable lighting values and if their buttons are down to the console.
 		std::cout << "Ambient: " << lightingParameter[0].currentVal.x << " " << a << endl;
 		std::cout << "Diffuse: " << lightingParameter[1].currentVal.x << " " << d << endl;
 		std::cout << "Specular: " << lightingParameter[2].currentVal.x << " " << s << endl;
+		std::cout << "Attunuation: " << attunationParameter.currentVal << " " << space << endl;
 		std::cout << endl;
 	}
 }

@@ -112,9 +112,13 @@ void QuatCamera::setNearAndFarPlanes(float nearPlane, float farPlane)
 glm::quat fromAxisAngle(glm::vec3 axis, float angle)  /*TODO:: Complete this function*/
 {
 	glm::quat rotation;
-	/*TODO:: Complete this function*/
-	return rotation;
+	
+	rotation.w = cos(angle / 2);
+	rotation.x = sin(angle / 2) * axis.x;
+	rotation.y = sin(angle / 2) * axis.y;
+	rotation.z = sin(angle / 2) * axis.z;
 
+	return rotation;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -124,8 +128,8 @@ glm::quat fromAxisAngle(glm::vec3 axis, float angle)  /*TODO:: Complete this fun
 void QuatCamera::rotate(const float yaw, const float pitch)  /*TODO:: Complete this function given yaw and pitch.*/
 {
 	/*TODO:: Complete this function*/ 
-	updateView();
 
+	updateView();
 }
 
 
@@ -134,7 +138,6 @@ void QuatCamera::rotate(const float yaw, const float pitch)  /*TODO:: Complete t
 /////////////////////////////////////////////////////////////////////////////////////////////
 void QuatCamera::pan(const float x, const float y)
 {
-
 	_position += _xaxis * x;
 	_position += _yaxis * -y;
 
@@ -147,12 +150,10 @@ void QuatCamera::pan(const float x, const float y)
 /////////////////////////////////////////////////////////////////////////////////////////////
 void QuatCamera::zoom(const float z)
 {
-
 	_position -= _zaxis * z;
 
 	//Now call updateView()
 	updateView();
-
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -166,7 +167,7 @@ void QuatCamera::updateView()
 	//This deals with the rotation and scale part of the view matrix
 	_view = glm::mat4_cast(_orientation); // Rotation and Scale
 
-										  //Extract the camera coordinate axes from this matrix
+    //Extract the camera coordinate axes from this matrix
 	_xaxis = glm::vec3(_view[0][0], _view[1][0], _view[2][0]);
 	_yaxis = glm::vec3(_view[0][1], _view[1][1], _view[2][1]);
 	_zaxis = glm::vec3(_view[0][2], _view[1][2], _view[2][2]);

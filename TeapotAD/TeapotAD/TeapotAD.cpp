@@ -39,7 +39,7 @@ QuatCamera camera;
 double lastCursorPositionX, lastCursorPositionY, cursorPositionX, cursorPositionY;
 
 //Track whether or not lighting value changing keys are currently down.
-bool shift, a, d, s, r;
+bool shift, a, d, s, space, r;
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 //	Callback function for keypress use to toggle animate.
@@ -57,6 +57,7 @@ static void key_callback(GLFWwindow* window, int key, int cancode, int action, i
 		if (key == GLFW_KEY_A) { a = true; }
 		if (key == GLFW_KEY_D) { d = true; }
 		if (key == GLFW_KEY_S) { s = true; }
+		if (key == GLFW_KEY_SPACE) { space = true; }
 	}
 
 	// If the key stops being pressed, set its boolean to false. (Except for the reset button which can't be continuously held; is set back to false in the animate() function once called).
@@ -67,9 +68,10 @@ static void key_callback(GLFWwindow* window, int key, int cancode, int action, i
 		if (key == GLFW_KEY_A) { a = false; }
 		if (key == GLFW_KEY_D) { d = false; }
 		if (key == GLFW_KEY_S) { s = false; }
+		if (key == GLFW_KEY_SPACE) { space = false; }
 	}
 
-	scene->animate(shift, a, d, s, r);	
+	scene->animate(shift, a, d, s, space, r);	
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////

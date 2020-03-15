@@ -32,7 +32,7 @@ public:
 	/**
 		Used to update the lighting parameters based on the user's keyboard input.
 	 */
-	virtual void animate(bool &shift, bool &a, bool &d, bool &s, bool &r) = 0;
+	virtual void animate(bool &shift, bool &a, bool &d, bool &s, bool &space, bool &r) = 0;
     
 protected:
 	bool m_animate;
