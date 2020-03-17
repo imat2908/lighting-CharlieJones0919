@@ -131,7 +131,7 @@ namespace imat2908
 	/////////////////////////////////////////////////////////////////////////////////////////////
 	void SceneDiffuse::setMatrices(QuatCamera camera)
 	{
-		mat4 mv = camera.view() * model;							// The model's matrix translated into the camera view or eye co-ordinates.
+		mat4 mv = camera.view() * model;							// The model's matrix translated into the camera view co-ordinates.
 		prog.setUniform("ModelViewMatrix", mv);						
 		prog.setUniform("matrixProperties.NormalMatrix", mat3(vec3(mv[0]), vec3(mv[1]), vec3(mv[2])));
 		prog.setUniform("MVP", camera.projection() * mv);

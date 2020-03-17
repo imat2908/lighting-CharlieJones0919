@@ -8,9 +8,9 @@ layout (location = 1) in vec3 VertexNormal;	  // Input of the models vertexs' lo
 ///////////////////////////////////////////////////////////////////////////
 out Data	
 {
-	vec3 N;				 // Normal transformed into the eye/world co-ordinates.
-	vec3 lightPos;		 // Light's position transformed into the world co-ordinates.
-	vec3 vertPos;		 //	Models vertexs' position transformed into the world co-ordinates.
+	vec3 N;				 // Normal transformed into the eye co-ordinates.
+	vec3 lightPos;		 // Light's position transformed into the eye co-ordinates. (Camera plane).
+	vec3 vertPos;		 //	Models vertexs' position transformed into the eye co-ordinates.
 } data;					 // Object of the Data structure to hold the output variables.
 
 ///////////////////////////////////////////////////////////

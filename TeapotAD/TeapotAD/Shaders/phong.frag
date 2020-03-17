@@ -5,9 +5,9 @@
 /////////////////////////////////////////////////////////////////////////
 in Data 
 {
-	vec3 N;			// Vertex Normal as Translated into Worldspace by the Vertex Shader.
-	vec3 lightPos;  // Light's Position as Translated into Worldspace by the Vertex Shader.
-	vec3 vertPos;   // Models Vertexs' Position as Translated into Worldspace by the Vertex Shader.
+	vec3 N;			// Vertex Normal as Translated into Eye-space by the Vertex Shader.
+	vec3 lightPos;  // Light's Position as Translated into Eye-space by the Vertex Shader.
+	vec3 vertPos;   // Models Vertexs' Position as Translated into Eye-space by the Vertex Shader.
 } data;				// Object of the Data structure to hold the input variables.
 
 ////////////////////////////////////////////////////////////////////
