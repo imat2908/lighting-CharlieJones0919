@@ -20,6 +20,7 @@ struct LightData
 	vec3 Ld;            // Diffuse Light Intensity.
 	vec3 Ls;            // Specular Light Intensity.
 };
+uniform LightData Light;		// The Uniform Light Source for the Parameters to be Passed into.
 
 ////////////////////////////////////////////////////////////////////////
 /////////////////////  The Materials's Properties  /////////////////////
@@ -30,8 +31,6 @@ struct MaterialData
 	vec3 Kd;            // Diffusion Reflectivity in Material
 	vec3 Ks;            // Specular Reflectivity in Material
 };
-
-uniform LightData Light;		// The Uniform Light Source for the Parameters to be Passed into.
 uniform MaterialData Material;	// The Uniform Model Material for the Parameters to be Passed into.
 
 layout( location = 0 ) out vec4 FragColour; // The Final Output Fragment Colour with Consideration of the Lighting and Materials' Properties.

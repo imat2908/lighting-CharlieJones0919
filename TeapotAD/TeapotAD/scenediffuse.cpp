@@ -11,10 +11,8 @@ using std::endl;
 
 using glm::vec3;
 
-
 #include <gtc/matrix_transform.hpp>
 #include <gtx/transform2.hpp>
-
 
 namespace imat2908
 {
