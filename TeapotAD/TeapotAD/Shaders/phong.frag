@@ -7,7 +7,7 @@ in Data
 {
 	vec3 N;			// Vertex Normal as Translated into Eye-space by the Vertex Shader.
 	vec3 lightPos;  // Light's Position as Translated into Eye-space by the Vertex Shader.
-	vec3 vertPos;   // Models Vertexs' Position as Translated into Eye-space by the Vertex Shader.
+	vec3 vertPos;   // Models Vertexs' Positions as Translated into Eye-space by the Vertex Shader.
 } data;				// Object of the Data structure to hold the input variables.
 
 ////////////////////////////////////////////////////////////////////
@@ -57,7 +57,7 @@ void light(vec3 N, vec3 vertPos, vec3 lightPos, vec3 La, vec3 Ld, vec3 Ls, vec3 
 ////////////////////////////////////
 ///// SPECULARITY CONTRIBUTION /////
 ////////////////////////////////////
-	vec3 normalisedVertPos = normalize(-vertPos);						// Inverted model vertex position.
+	vec3 normalisedVertPos = normalize(lightPos - vertPos);				// Inverted model vertex position.
 	vec3 reflection = reflect(-vectorsNorm, N);							// Inverted model vertex position reflected across its normal.
 		
 	vec4 Is = vec4(pow(max(dot(reflection, normalisedVertPos), 0.0), 1.0));	// Substitution for cos^normal(angle between light and object).
