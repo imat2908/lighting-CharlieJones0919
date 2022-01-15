@@ -1,9 +1,9 @@
 Keyboard Controls for Approximate Testing:
 
-a         = Increase Ambient Contribution.
-a + shift = Decrease Ambient Contribution.
-s         = Increase Specular Contribution.
-s + shift = Decrease Specular Contribution.
-d         = Increase Diffuse Contribution.
-d + shift = Decrease Diffuse Contribution.
+a         = Increase Ambient Contribution. <br />
+a + shift = Decrease Ambient Contribution. <br />
+s         = Increase Specular Contribution. <br />
+s + shift = Decrease Specular Contribution. <br />
+d         = Increase Diffuse Contribution. <br />
+d + shift = Decrease Diffuse Contribution. <br />
 r         = Reset Contributions.
